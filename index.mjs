@@ -1,11 +1,10 @@
 import http from "http"
-import process from 'node:process';
+import process from "node:process"
 
 // Properly handle SIGTERM and SIGINT
-process.stdin.resume();
-process.on('SIGINT', () => process.exit(0))
-process.on('SIGTERM', () => process.exit(0))
-
+process.stdin.resume()
+process.on("SIGINT", () => process.exit(0))
+process.on("SIGTERM", () => process.exit(0))
 
 const jwtDecode = function (jwt) {
 	function b64DecodeUnicode(str) {
@@ -87,6 +86,7 @@ const requestListener = function (req, res) {
 		return
 	}
 
+	res.setHeader("Content-Type", "text/html")
 	res.writeHead(200)
 	const jwt = jwtDecode(req.headers.authorization.split(" ")[1])
 	jwt.signature = "[Signature]"
